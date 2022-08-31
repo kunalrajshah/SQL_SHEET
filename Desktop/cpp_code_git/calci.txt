@@ -1,0 +1,43 @@
+#include<iostream.h>
+using namespace std;
+
+int main()
+{
+   char ch;
+   int a,b;
+   cout<<"Enter value of a and b is:"<<endl;
+   cin>>a>>b;
+   cout<<"----------------"<<endl;
+   cout<<"value of a is:"<<a<<endl;
+   cout<<"value of b is:"<<b<<endl;
+   cout<<"----------------"<<endl;
+   cout<<"Enter operator which u want to do like(+,-,*,/,%):"<<endl;
+   cin>>ch;
+   switch(ch)
+   {
+       case '+':{
+       cout<<"a+b is: "<<a+b<<endl;
+       break;
+       }
+       case '-':{
+       cout<<"a-b is: "<<a-b<<endl;
+       break;
+       }
+       case '*':{
+       cout<<"a*b is: "<<a*b<<endl;
+       break;
+       }
+       case '/':{
+       cout<<"a/b is: "<< (float)a/b<<endl; //typecasting
+       break;
+       }
+       case '%':{
+       cout<<"a%b is: "<<a%b<<endl;
+       break;
+       }
+       default:
+        {
+            cout<<"Invalid choice";
+        }
+   }
+}
