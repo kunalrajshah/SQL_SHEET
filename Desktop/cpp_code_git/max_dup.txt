@@ -1,0 +1,16 @@
+// Q) give maximum number of which letter duplicate(last most character not  lexicographically).....
+string s="aaabcdafgbcada";
+   map<char,int>ans;
+   int mx=0;
+   char maxch;
+   for(int i=0;i<s.size();i++)
+   {
+       char c=s[i];
+       ans[c]++;
+       if(ans[c]>mx)
+       {
+           mx=ans[c];
+           maxch=c;
+       }
+   }
+   cout<<maxch<<":"<<mx;
