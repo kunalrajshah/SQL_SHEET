@@ -1,0 +1,814 @@
+                    CREATE TABLE
+                  -----------------
+CREATE TABLE table_name (
+    column1 datatype ,
+    column2 datatype ,
+    column3 datatype ,
+    .....
+ ) ;
+**************
+ To create data-base:
+    create database database_name;
+**************
+To use/Select any database:
+    Use database_name;
+**************
+To select/open any table: 
+    SELECT * FROM database_name.table_name;
+***************
+To Insert into a Table:
+  INSERT INTO table_name ( column1, column2, ....)
+  VALUES ( value1, value2.....);
+***************
+To Insert Multiple values at same time into a table:
+  INSERT INTO table_name ( column1, column, ....)
+  VALUES
+
+  ( value1, value2.....),
+  ( value1, value2.....),
+  ( value1, value2.....);
+****************
+List of Constraints
+
+1.NOT NULL
+2.UNIQUE
+3.DEFAULT
+    for ex-> DEFAULT 43
+             DEFAULT 'KUNAL'
+
+4.CHECK(condition)
+5.FOREIGN KEY
+6.PRIMARY KEY
+
+ EXAMPLE of creating table with constraints(restriction) -> 
+  CREATE TABLE table_name (
+  id INT NOT NULL UNIQUE,
+  name VARCHAR(50) NOT NULL,
+  age INT NOT NULL CHECK (age >= 18),
+  gender VARCHAR(10) NOT NULL,
+  phone VARCHAR(10) NOT NULL UNIQUE,
+  city VARCHAR(10) NOT NULL DEFAULT "Agra"
+  );
+****************
+Show the datas of any particular column of a Table:
+    SELECT column1, column2, column3, ....
+    FROM table_name;
+
+ And Datas of whole Table:
+    SELECT *
+    FROM table_name;
+****************
+To show the content of that particular column from a table with name of columns change at that particular time:
+    SELECT id AS Id, namee AS Student, phone AS Phone FROM table_name;
+****************
+
+To show the datas of that rows of the conditions from that table:
+   SELECT column1, column2, column3, ....
+   FROM table_name 
+   WHERE (condition);
+*****************
+To show the datas of that rows of the conditions from that table using AND,OR,NOT:
+   SELECT column1, column2, column3, ....
+   FROM table_name 
+   WHERE (condition1 AND condition2 AND codition3);
+
+ Example for NOT operator:-
+   1. SELECT * from table_name 
+      WHERE NOT city="Bhopal" OR city="Agra"; (mean- city which is not equal to bhopal)
+
+   2. SELECT * from table_name 
+      WHERE NOT (city="Bhopal" OR city="Agra"); (mean- city which is not equal to bhopal and Agra)
+******************
+To  show the data from the column with particular value using IN operator:
+  SELECT column1, column2, column3, ....
+  FROM table_name
+  WHERE column_name IN (value1, value2, ...);
+
+  Example for NOT IN:-
+      SELECT * from table_name 
+      WHERE city NOT IN("Bhopal","Agra");
+*******************
+To show the data from the column using Between(upper and lower both limits are inclusive) operator:
+  SELECT column1 , column2 , column3 , ....
+  FROM table_name
+  WHERE column_name BETWEEN value1 AND value2 ;
+
+  Example :-
+      1.SELECT * FROM table_name
+        WHERE nam BETWEEN " a " AND " k " ; (Here, it compare first letter of nam small/capital both)
+
+      2.SELECT * FROM table_name
+        WHERE birth_date BETWEEN " 1995-01-01 " AND " 1995-06-30 " ;
+
+      3.SELECT * FROM table_name
+        WHERE age NOT BETWEEN 18 AND 20 ;
+*******************
+To show the data from the column using LIKE operator:
+  SELECT column1 , column2 , column3 , ....
+  FROM table_name
+  WHERE column_name LIKE pattern;
+
+  Example :-
+      1.SELECT * FROM table_name
+        WHERE nam LIKE "rm%";
+
+      2.SELECT * FROM table_name
+        WHERE nam LIKE "r%" OR nam LIKE "s%";
+
+      3.SELECT * FROM personal
+        WHERE BINARY name LIKE "R%"; (BINARY keyword is used if you want case-sensitive Searching)
+      
+      4.SELECT * FROM table_name
+        WHERE phone LIKE "%21";
+
+*********************
+To show the data from the column using REGULAR Exapression:
+   SELECT column1 , column2 , column3 , .....
+   FROM table_name
+   WHERE column_name REGEXP pattern ;  
+
+   Example :-
+       1. SELECT * FROM table_name
+          WHERE nam REGEXP 'man';
+
+       2. SELECT * FROM table_name
+          WHERE nam REGEXP 'an$';
+
+       3. SELECT * FROM table_name
+          WHERE nam REGEXP 'ram|kapoor|khan';
+
+       4. SELECT * FROM table_name
+          WHERE nam REGEXP '[rm]a';
+
+       5. SELECT * FROM table_name
+          WHERE nam REGEXP '[a-j]r';
+**********************
+SELECT with ORDER BY syntax:
+  SELECT column1,column2,column3, ....
+  FROM table_name
+  ORDER BY column1,column2 , .... ASC/DESC ;   (default- ASC)
+
+  Example :-
+      1. SELECT * FROM table_name
+         ORDER BY nam;
+
+      2. SELECT * FROM table_name
+         ORDER BY nam DESC;
+      
+      3. SELECT * FROM table_name
+         WHERE city = "Agra"
+         ORDER BY nam DESC ;
+***********************
+SELECT data with  DISTINCT:
+  SELECT DISTINCT column1,column2,.... FROM table_name;
+
+  Example :-
+         1.SELECT DISTINCT city FROM table_name;
+         2.SELECT DISTINCT city FROM table_name ORDER BY age;
+***********************
+SELECT with null syntax:
+    SELECT column1 , column2 , column3 , ....
+    FROM table_name
+    WHERE column IS NULL ;
+
+    SELECT column1 , column2 , column3 , ....
+    FROM table_name
+    WHERE column IS NOT NULL ;
+
+    Example:-
+        1.SELECT * FROM table_name
+          WHERE birth_date IS NULL ;
+
+        2.SELECT * FROM table_name
+          WHERE birth_date IS NOT NULL ;
+*************************
+ SELECT with LIMIT and OFFSET syntax:
+    SELECT column1 , column2 , column3 , ...
+    FROM table_name
+    WHERE condition
+    LIMIT number ;  
+
+    SELECT column1 , column2 , column3 , ....
+    FROM table_name
+    WHERE condition
+    LIMIT offset , number ; (limit 3,3 -> mean leave first 3 row)
+
+    Example:-
+        1.SELECT * FROM table_name
+          WHERE city="agra"
+          ORDER BY nam
+          LIMIT 3;
+
+        2.SELECT * FROM table_name
+          WHERE city="agra"
+          LIMIT 3,3;
+**************************
+SELECT with Aggregate Functions:
+   SELECT FUN_NAME (column_name)
+   FROM table_name
+   WHERE condition ;
+
+   Example:-
+       1.SELECT COUNT(nam) FROM table_name;
+       2.SELECT COUNT (DISTINCT city) FROM table_name;
+       3.SELECT MAX (percentage) AS Max_percentage FROM table_name;
+       4.SELECT MIN (percentage) AS Min_Percentage, nam , city FROM table_name; (It gives the name,city of that person whose percent is minimum)
+       5.SELECT SUM (percentage) AS Total_Percent FROM table_name;
+       6.SELECT AVG (percentage) AS Average FROM table_name;
+***************************
+UPDATE syntax:
+    UPDATE table_name
+    SET column1_name = value1 , column2_name = value2 , ...
+    WHERE condition ;
+
+    Example:-
+        1.UPDATE table_name
+          SET phone="4055555"
+          WHERE id = 1;
+
+        2.UPDATE table_name
+          SET percentage = 55 , age = 21 
+          WHERE id = 2;
+
+        3.UPDATE table_name
+          SET age = 18
+          WHERE id IN (2,3);
+**************************
+Commit and Rollback Work As:
+1.First, We have to Commit(save) that part of query in which we have confidence that there should be no change on it. After that
+  if we update/insert/Delete any row by mistake. Then we just  type Rollback after that query, then that action which is done after commit is all revert.
+
+  Example:-
+    1.SELECT * FROM personal ;
+      COMMIT ;
+
+      UPDATE personal SET percentage = 60
+      WHERE id = 2 ;
+
+      ROLLBACK ;
+
+
+    2.SELECT * FROM personal ;
+      COMMIT ;       
+       
+      UPDATE personal SET age = 20
+      WHERE id = 4 ;
+
+      UPDATE personal SET percentage =50
+      WHERE id = 2 ;
+
+      ROLLBACK ;
+*************************
+DELETE syntax:
+   DELETE FROM table_name
+   WHERE condition ;
+
+   Example:-
+       DELETE FROM table_name
+       WHERE id = 4;
+*************************
+PRIMARY KEY syntax:
+  CREATE TABLE table_name (
+  id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR (50) NOT NULL,
+  age INT NOT NULL,
+  city VARCHAR (10) NOT NULL,
+  PRIMARY KEY (id)
+) ;
+
+-> If table is already created and we have to use primary key on that table then syntax:
+     ALTER TABLE table_name
+     ADD PRIMARY KEY (column_name);
+***************************
+FOREIGN KEY syntax:
+    CREATE TABLE student (
+    id INT NOT NULL AUTO_INCREMENT ,
+    name VARCHAR (50) NOT NULL ,
+    age INT NOT NULL ,
+    city VARCHAR (10) NOT NULL ,
+    PRIMARY KEY (id) ,
+    FOREIGN KEY (city) REFERENCES CITY_TABLE  (cid)
+    );
+
+->If table is already created and we have to use FOREIGN KEY on that table then syntax:
+      ALTER TABLE table_name
+      ADD FOREIGN KEY (city) REFERENCES City (cid);
+******************************
+INNER JOIN syntax:
+  SELECT columns
+  FROM table1
+  INNER JOIN table2
+  ON table1.column_name= table2.column_name ;  (column of table1 is FOREIGn key and column of table2 is primary key)
+
+  Example:-
+      1.SELECT * FROM personal INNER JOIN city
+        ON personal.city = city.cid ;
+
+      2.SELECT * FROM personal p INNER JOIN city c
+        ON p.city = c.cid ;
+
+      3.SELECT p.id , p.name , p.percentage , p.age , p.gender , c.cityname
+        FROM personal p INNER JOIN city c
+        ON p.city = c.cid ;
+
+      4.SELECT p.id , p.name , p.percentage , p.age , p.gender , c.cityname
+        FROM personal p INNER JOIN city c
+        ON p.city = c.cid
+        WHERE c.cityname = " Agra " ;
+
+      5.SELEC  p.id , p.name , p.percentage , p.age , p.gender , c.cityname 
+        FROM personal p JOIN city c
+        ON p.city = c.cid
+        WHERE c.cityname = " Agra "
+        ORDER BY p.name ;
+********************************
+LEFT JOIN syntax:
+    SELECT columns
+    FROM table1
+    LEFT JOIN table2
+    ON table1.column_name = table2.column_name ;  (column of table1 is FOREIGn key and column of table2 is primary key)
+
+    Example:-
+       1.SELECT * FROM personal LEFT JOIN city
+         ON personal.city = city.cid ;
+
+       2.SELECT * FROM personal p LEFT JOIN city c
+         ON p.city = c.cid ;
+
+       3.SELECT p.id , p.name , p.percentage , p.age , p.gender , c.cityname
+         FROM personal p LEFT JOIN city c
+         ON p.city = c.cid ;
+         WHERE gender = " M "
+         ORDER BY name ;
+*********************************
+RIGHT JOIN syntax:
+    SELECT columns
+    FROM table1
+    RIGHT JOIN table2
+    ON table1.column_name = table2.column_name ;  (column of table1 is FOREIGn key and column of table2 is primary key)
+
+    Example:-
+      1.SELECT p.id , p.name , p.percentage , p.age , p.gender , c.cityname
+        FROM personal p RIGHT JOIN city c
+        ON p.city = c.cid ;
+*********************************
+CROSS JOIN syntax:
+    SELECT columns
+    FROM table1
+    CROSS JOIN table2 ;
+
+    Example:-
+        1.SELECT * FROM personal CROSS JOIN city;
+        
+        2.SELECT p.id,p.name,c.cityname
+          FROM personal p CROSS JOIN city c;
+
+        3.SELECT p.id,p.name AS NAME,c.cityname AS CITY      (AS change the column name)
+          FROM personal p CROSS JOIN city c;
+
+        4.SELECT p.id,p.name AS NAME,c.cityname AS CITY      
+          FROM personal p , city c;                           (CROSS JOIN can be replace by comma{,})
+*************************************
+JOIN Multiple TABLES:
+    SELECT columns
+    FROM table1
+    INNER JOIN table2
+    ON table1.column_name = table2.column_name   (column of table1 is FOREIGn key and column_name of table_2 is PRIMARY KEY)
+    INNER JOIN table3
+    ON table1.column_name = table3.column_name ; (column of table1 is FOREIGn key and column_name of table_3 is PRIMARY KEY)
+
+    Example:-
+       1.SELECT * FROM
+         personal p INNER JOIN city c
+         ON p.city = c.cid
+         INNER JOIN courses cr
+         ON p.courses = cr.course_id ;
+
+       2.SELECT p.id , p.name , p.percentage , p.age , p.gender , c.cityname , cr.course_name
+         FROM
+         personal p INNER JOIN city c
+         ON p.city = c.cid
+         INNER JOIN courses cr
+         ON p.courses = cr.course_id
+         WHERE c.cityname = " Agra " ;
+***************************************
+SELECT with GROUP BY sntax:
+    1.SELECT columns,Aggregate Function
+      FROM table_name
+      WHERE condition
+      GROUP BY column_name(s) ;
+
+    2.SELECT columns,Aggregate Function
+      FROM table1 INNER JOIN table2
+      ON table1.column_name = table2.column_name
+      WHERE condition
+      GROUP BY column_name(s) ;
+
+      Example:-
+        1.SELECT city ,COUNT(city)
+          FROM personal
+          GROUP BY city ;
+
+        2.SELECT c.cityname , COUNT ( p.city ) AS Total
+          FROM personal p INNER JOIN city c
+          ON p.city = c.cid
+          WHERE p.age>=20
+          GROUP BY city ;
+
+        3.SELECT c.cityname , COUNT ( p.city ) AS Total
+          FROM personal p INNER JOIN city c
+          ON p.city = c.cid |
+          GROUP BY city
+          ORDER BY COUNT ( p.city ) ;
+
+GROUP BY with HAVING clause:
+      SELECT columns,Aggregate Function
+      FROM table_name
+      GROUP BY column_name(s)
+      HAVING condition;
+
+      Example:-
+         SELECT c.cityname , COUNT ( p.city ) AS Total
+         FROM personal p INNER JOIN city c
+         ON p.city = c.cid
+         GROUP BY city
+         HAVING COUNT ( p.city ) > 3
+         ORDER BY COUNT ( p.city ) DESC ;
+
+*****************************************
+SubQuery with EXISTS & NOT EXISTS:
+    SELECT columns
+    FROM table1
+    WHERE
+    column = ( SELECT columns FROM table2 WHERE condition ) ;
+
+    Example:-
+       1.SELECT name FROM personal
+         WHERE courses = ( SELECT course_id FROM courses WHERE course_name = " MBA " ) ;
+
+       2.SELECT name FROM personal
+         WHERE courses IN ( SELECT course_id FROM courses WHERE course_name  IN("MBA","B.A"));
+
+
+WITH EXISTS
+-----------
+  SELECT columns
+  FROM table1
+  WHERE
+  EXISTS ( SELECT columns FROM table2 WHERE condition );
+
+  Example:-
+     SELECT name FROM personal
+     WHERE EXISTS ( SELECT course_id FROM courses WHERE course_name IN ( " MBA " ) ) ;
+
+WITH NOT EXISTS
+---------------
+  SELECT columns
+  FROM table1
+  WHERE
+  NOT EXISTS ( SELECT columns FROM table2 WHERE condition ); 
+    
+  Example:-
+     SELECT name FROM personal
+     WHERE NOT EXISTS ( SELECT course_id FROM courses WHERE course_name IN ( " SSC " ) ) ;
+
+***************************************
+UNION and UNION ALL syntax:
+      SELECT column1 , column2 FROM table1
+      UNION / UNION ALL
+      SELECT column1 , column2 FROM table2 ;
+
+  Example:-
+      1.SELECT * FROM students
+        UNION
+        SELECT * FROM lecturers
+
+      2.SELECT name FROM students
+        UNION                               (it remove the duplicacy of name)
+        SELECT name FROM lecturers     
+
+      3.SELECT name , age FROM students WHERE gender = " M "
+        UNION ALL
+        SELECT name , age FROM lecturers WHERE gender = " M " 
+
+      4.SELECT name , age FROM students
+        WHERE city = ( SELECT cid FROM city WHERE cityname = " Delhi " )
+        UNION ALL
+        SELECT name , age FROM lecturers
+        WHERE city = ( SELECT cid FROM city WHERE cityname = " Delhi " )
+
+      5.SELECT s.name , s.age , c.cityname
+        FROM students s INNER JOIN city c
+        ON s.city = c.cid
+        WHERE c.cityname = " Delhi "
+        UNION ALL
+        SELECT l.name , l.age , ci.cityname
+        FROM lecturers l INNER JOIN city ci
+        ON l.city = ci.cid
+        WHERE ci.cityname = " Delhi " ;
+******************************************
+SELECT with IF Clause syntax:
+    SELECT column1 , column2 ,
+    IF ( Condition , TRUE Result , FALSE Result ) AS alias_name
+    FROM table_name ;
+
+    Example:-
+       1.SELECT id ,name,percentage ,                       (Before IF use comma{,})
+         IF ( percentage > = 33,"Pass","Fail" ) AS Result
+         FROM students ;
+******************************************
+SELECT with CASE Clause syntax:
+      SELECT column1,column2,                               (Before CASE use comma{,})
+      CASE
+        WHEN Condition1 THEN result1
+        WHEN Condition2 THEN result2
+        WHEN Condition3 THEN result3
+        ELSE result alias_name
+      END AS alias_name
+      FROM table name ;
+
+      Example:-
+          1.SELECT id , name , percentage ,
+            CASE
+              WHEN percentage > = 80 AND percentage < = 100 THEN " Merit "
+              WHEN percentage > = 60 AND percentage < 80 THEN " Ist Division "
+              WHEN percentage > = 45 AND percentage < 60 THEN " IInd Division "
+              WHEN percentage > = 33 AND percentage < 45 THEN " IIIrd Division "
+              WHEN percentage < 33 THEN " Fail "
+              ELSE " Not Correct % "
+            END AS Grade
+            FROM students ;
+
+          2. UPDATE IN column with CASE:
+            -----------------------------
+            UPDATE students SET
+            percentage = ( CASE id
+                WHEN 3 THEN 39
+                WHEN 7 THEN 62
+            END)
+            WHERE id IN ( 3 , 7 ) ;                 (use UPDATE syntax always with WHERE clause)
+*****************************************
+AIRTHEMATIC OPERATION:
+Example:-
+
+  SELECT 15+6 AS Total;
+  SELECT 15-6 AS Total;
+  SELECT 15*6 AS Total;
+  SELECT 15/6 AS Total;      -> Give Float value
+  SELECT 15 DIV 6 AS Total;  -> GIve integer value
+  SELECT 15%6 AS Total;
+  SELECT 15 MOD 6 AS Total;
+
+  SELECT id,name,(percentage+5) AS "NEW Percentage"
+  FROM students;
+
+  SELECT PI();               -> give 3.14
+  SELECT ROUND(4.51);        -> 5
+  SELECT ROUND(4.49);        -> 4
+  SELECT ROUND(1234.987,2);  -> 1234.99    (..,2 -> round off up to 2 point decimal)
+  SELECT CEIL(1.23);         -> 2
+  SELECT CEIL(1.86);         -> 2
+  SELECT FLOOR(4.40);        -> 4
+  SELECT FLOOR(4.80);        -> 4
+  SELECT POW(2,3);           -> 8
+  SELECT SQRT(16);           -> 4
+  SELECT ROUND(SQRT(5));     -> 2
+  SELECT RAND();             ->  It generate random value between 0 and 1 
+  SELECT RAND() * 100;       ->  It generate random value between 0 and 100 
+  SELECT FLOOR(7+(RAND() * 6)); ->  It generate random value between 7 and 12 (7+6=13 it gives less than 1 of 13(13-1=12));
+  SELECT FLOOR(1+(RAND() * 5)); ->  It generate random value between 1 and 5 (1+5=6 it gives less than 1 of 6(6-1=5));
+
+  SELECT id,name,percentage
+  FROM students ORDER BY RAND();
+
+  SELECT ABS(-5)             -> 5
+  SELECT ABS(56)             -> 56
+  SELECT SIGN(25)            -> 1 (Greater than 0)
+  SELECT SIGN(-0.25)         -> -1 (Less than 0)
+  SELECT SIGN(0)            -> 0 (Equal to  0)
+
+**************************************************
+STRING FUNCTION:
+  Example:-
+     1.SELECT id,UPPER (name) AS Name, percentage
+       FROM students ;
+
+     2.SELECT id,LOWER (name) AS Name, percentage
+       FROM students ;
+
+     3.SELECT id,name, character_Length (name) AS characters     ( or use CHAR_LENGTH)
+       FROM students ;
+
+     4.SELECT id ,CONCAT(name," ",percentage) AS Name
+       FROM students ;
+
+     5.SELECT CONCAT("yahoo","BABA","CHANNEL","utube") AS Name;   (Multiple concat)
+
+     6.SELECT CONCAT_WS(" - ","BABA","CHANNEL","utube") AS Name; (first parameter is work as a separator)
+             Ex- BABA - CHANNEL - utube
+      
+     7.SELECT LTRIM("          kunal raj ") AS Name;           (it remove spaces from left side)
+     8.SELECT RTRIM("  kunal raj         ") AS Name;           (it remove spaces from Right side)
+     9.SELECT TRIM("          kunal raj         ") AS Name;    (it remove spaces from BOTH side)
+    10.SELECT POSITION(" Baba " IN "yahoo Baba ") AS Name;     (it gives the position of baba -> 7)
+    11.SELECT INSTR("yahoo Baba Jay Ho" , "Baba") AS Name;     (it gives the position of baba -> 7)
+    12.SELECT LOCATE("a","yahoo Baba Baba",3 ) AS Name;        (it gives the position of 'a' which is start from 3(h..))
+
+    13.SELECT SUBSTRING ("Yahoo Baba",3) As Name ;                  ->  hoo Baba (it return the string from 3)
+    14.SELECT SUBSTRING ("Yahoo Baba",5,6) As Name ;                ->  o Baba (it return the string  starting from 5 and give 6 letter)
+    15.SELECT SUBSTR ("Yahoo Baba",-6,3) As Name ;                  ->  o B (it return the string starting from back side(-1,-2...))
+    16.SELECT MID ("Yahoo Baba",-6,3) As Name ;                     ->  o B
+    17.SELECT SUBSTRING_INDEX("WWW.yahoobaba.net", " . " ,1) As Name ;-> WWW (1st Dot ke peeche ka sara string return kar dega)
+    18.SELECT SUBSTRING_INDEX("WWW.yahoobaba.net", " . " ,2) As Name ;-> WWW.yahoobaba (2nd  Dot ke peeche ka sara string return kar dega)
+    19.SELECT left("yahoo Baba",3) As Name ;                          ->yah (left se 3 char return kar dega) 
+    20.SELECT Right("yahoo Baba",3) As Name ;                         ->aba (right se 3 char return kar dega) 
+    21.SELECT RPAD("yahoo Baba",20,"-") As Name ;                     ->(it append the string to 20 char by '-' from right)
+    22.SELECT LPAD("yahoo Baba",20,"-") As Name ;                     ->(it append the string to 20 char by '-' from left)
+    23.SELECT SPACE(100) As Name ;                                    ->(it add 100 space)
+    24.SELECT REVERSE("yahoo baba") As Name ;                        ->(it reverse the string)
+    25.SELECT REPLACE("yahoo baba","baba","WoW") As Name ;           ->(it replace the 'baba' BY 'WOW')
+    26.SELECT STRCMP("Yahoo Baba","yahoo baba") As Name ;            -> if Equal then 0
+                                                                     -> if Greater than second then 1
+                                                                     -> if Less than second then -1
+
+    27.SELECT FIELD ( " a " , " X " , " a " , " k " ) AS Name ;    -> it search first parameter('a') from all given parameter and return index(2)
+    28.SELECT FIELD ( 5 , 0 , 1 , 2 , 3 , 4, 5 ) AS Name ;          ->  it return 6.
+    29.SELECT FIELD ( " ram " , " Ram " , " Mohan " , " Shyam " ) AS Name ;  -> it return 1
+    30.SELECT FIND_IN_set ("mohan", "Ram,Mohan,Shyam") AS Name ;  -> it return 2
+    31.SELECT FORMAT(255.3568,3) As Value;                -> 255.357
+    32.SELECT HEX("yahoo baba") As Hex_Value;             -> it return hex value of string.
+
+*****************************************************
+DATE Function:
+  Example:-
+     1.SELECT CURRENT_DATE();     (/CURDATE)
+     2.SELECT SYSDATE();
+     3.SELECT NOW();                                                  (it give current system date and time)
+     4.SELECT DATE("2019-06-15  09:34:21") AS DATE;                   (it give date)
+     5.SELECT MONTH("2019-06-15  09:34:21") AS DATE;                  (it give month)
+     6.SELECT MONTHNAME("2019-06-15  09:34:21") AS DATE;              (it give month_name)
+     7.SELECT YEAR("2019-06-15  09:34:21") AS DATE;                   (it give year)
+     8.SELECT id,name,dob,YEAR(dob)AS Year FROM student.students ;    (it give year of DOB column)
+     9.SELECT id,name,dob,MONTH(dob)AS MOnth FROM student.students ;  (it give Month of DOB column)
+    10.SELECT QUARTER("2019-06-15  09:34:21") AS DATE;                (vo month kaun se quarter me lie kr rha hai and in 1 year there is 4 quarter)
+    11.SELECT DAY("2019-06-15  09:34:21") AS DATE;
+    12.SELECT DAYNAME("2019-06-15  09:34:21") AS DATE;
+
+    13.SELECT DAYOFWEEK("2019-06-15  09:34:21") AS DATE;
+    14.SELECT DAYOFYEAR("2019-06-15  09:34:21") AS DATE;               -> ALL three give index of week,year,month
+    15.SELECT DAYOFMONTH("2019-06-15  09:34:21") AS DATE;
+
+    16.SELECT WEEK("2019-06-15  09:34:21") AS DATE;
+    17.SELECT WEEKDAY("2019-06-15  09:34:21") AS DATE;
+    18.SELECT YEARWEEK("2019-06-15  09:34:21") AS DATE;
+    19.SELECT LAST_DAY("2019-06-15  09:34:21") AS DATE;                (it give lasy day of that month)
+
+    20.SELECT EXTRACT( MONTH FROM "2019-06-15  09:34:21") AS DATE;
+    21.SELECT EXTRACT( YEAR FROM "2019-06-15  09:34:21") AS DATE;
+    22.SELECT EXTRACT( DAY FROM "2019-06-15  09:34:21") AS DATE;
+    23.SELECT EXTRACT( MINUTE FROM "2019-06-15  09:34:21") AS DATE;
+    24.SELECT EXTRACT( HOUR_MINUTE FROM "2019-06-15  09:34:21") AS DATE;
+
+
+
+    25.SELECT ADDDATE ( "2019-06-15" , INTERVAL 10 DAY ) AS Date ;
+    26.SELECT ADDDATE ( "2019-06-15" , INTERVAL 1 MONTH ) AS Date ;
+    27.SELECT ADDDATE ( "2019-06-15" , INTERVAL 12 HOUR ) AS Date ;
+    28.SELECT DATE_ADD ("2019-06-15 ", INTERVAL 5000 MINUTE ) AS Date;
+
+    29.SELECT MAKEDATE(2019,3)         -> it give new date (2019-01-03)
+    30.SELECT SUBDATE("2019-06-15" , INTERVAL 10 DAY) AS Date;             (it subtract 10 day from given date)
+    31.SELECT DATEDIFF("2019-06-15","2019-02-10",) AS Date;                (it give difference of of the day between two date)
+    32.SELECT TO_DAYS("2019-06-15") AS Date;                               (ye 0-given date(year) tak ka number of days dega) 
+    33.SELECT FROM_DAYS("685000") AS Date;                                 (ye 0-given days  tak ka date  dega) 
+    34.SELECT PERIOD_ADD("685000",5) AS Date;                              (add 5 days) 
+
+    35.SELECT DATE_FORMAT("2019-06-15","%Y") AS Date;                      (second parameter return)
+
+    36.SELECT DATE_FORMAT ( "2019-06-15" , " % d / % b / % Y " ) AS Date ;                                      -> 15/Jun/2019
+    37.SELECT DATE_FORMAT ( " 2019-06-15 " , " % d- % c - % y , % W " ) AS Date ;                               -> 15-6-2019,Saturday
+    38.SELECT DATE_FORMAT ( " 2019-06-15 02 : 30 : 50 : 20 " , " % d- % c - % y , % h : % i " ) AS Date ;       -> 15-6-2019,02:30
+    39.SELECT STR_TO_DATE ( " July 10 2019 " , " % M % d % Y " ) AS Date ;                                      -> 2019-07-10 (return in SQL format)
+***************************************************
+TIME FUNCTION:
+   
+   1.SELECT CURRENT_TIME(); (also, CURTIME)
+   2.SELECT CURRENT_TIMESTAMP(); (shows current date and time)
+   3.SELECT LOCALTIME(); (shows current date and time)
+   4.SELECT LOCALTIMESTAMP(); (shows current date and time)
+   5.SELECT TIME("2019-06-15 13:15:20") AS TIME; (shows whole time)
+   6.SELECT HOUR("2019-06-15 13:15:20") AS TIME; (shows hour)
+   7.SELECT TIMEDIFF("13:15:20","13:16:23") AS TIME; (shows difference between both times)
+   8.SELECT ADDTIME( "2019-06-15 05:30:20.000001" , "2:10:5.000003") AS Time; (adds the time)
+   9.SELECT ADDTIME( "2019-06-15 05:30:20.000001" , "5 2:10:5.000003") AS Time; (adds the time as well as day)
+   10.SELECT SUBTIME( "2019-06-15 05:30:20.000001" , "5 2:10:5.000003") AS Time; (subtracts the time as well as day)
+   11.SELECT MAKETIME(16,15,20) AS TIME; (makes time in format h:m:s)
+   12.SELECT TIMESTAMP("2019-06-15" , "13:15:20") AS TIME; (combines date and time)
+   13.SELECT TIME_FORMAT("13:15:20" , "% H-%i-%s %p") AS Time; (13-15-20 PM)
+   14.SELECT TIME_TO_SEC("13:15:20") AS Time; ->47720 (returns time in seconds)
+   15. SELECT SEC_TO_TIME("5454") AS TIME; ->1:30:54.000000
+****************************************************
+ALTER(modifications):
+
+Add Column:
+        ALTER TABLE table_name
+        ADD column_name datatype;
+Modify Column:(repositioning of the columns)
+         ALTER TABLE table_name
+         MODIFY column_name datatype;
+         AFTER column_name;  (iss column k baad upar wala column reposition hoga)
+Delete Column:  
+         ALTER TABLE table_name
+         DROP COLUMN column_name datatype;
+Rename Column:
+         ALTER TABLE table_name
+         CHANGE column_name New_name datatype;
+Rename Table:
+         ALTER TABLE table_name
+         RENAME New_table_name;
+
+Examples:
+  1.ALTER TABLE students                   -> adds column
+    ADD Email varchar(255);        
+  2.ALTER TABLE students                   -> repositioning of the column
+    MODIFY Email varchar(255)
+    AFTER name; 
+  3.ALTER TABLE students                   -> change the datatye of a column
+    MODIFY Email INT(10);
+  4.ALTER TABLE students                   -> add constraint
+    ADD UNIQUE(Email);  
+  5.ALTER TABLE students                   -> change the name and datatye of a column
+    CHANGE Email Email_id varchar(255);     
+  6.ALTER TABLE students                   -> deletes a column
+    DROP COLUMN Email_id;
+  7.ALTER TABLE students                   -> changes the name of table
+    RENAME students_table;
+  8.ALTER TABLE courses                    -> 4 se automatic numbering start krga fill krna pehle se auto_increment set kiye hue column mein
+    AUTO_INCREMENT = 4;
+******************************************************
+DROP and TRUNCATE:
+
+  DROP TABLE table_name;
+
+  TRUNCATE TABLE table_name;
+******************************************************
+VIEW: 
+
+CREATE VIEW:
+
+    CREATE VIEW view_name
+    AS                                     (after AS we can write any command to view)
+    SELECT columns
+    FROM student
+    INNER JOIN city
+    ON student.city = city.cid;
+
+ Example:
+    CREATE VIEW studentdata                (adding commands to view named studentdata)   
+    AS
+    SELECT id , name , course_name FROM
+    students s INNER JOIN courses c
+    ON s.courses = c.course_id;
+
+
+    SELECT * FROM studentdata;             (we can execute(call) the view commands named studentdata)
+
+ALTER VIEW:
+    ALTER VIEW studentdata                 (modifies the command from view named studentdata)
+    AS                                     (we can also write "CREATE OR REPLACE" instead of ALTER...it replaces the existing view or create a new one if not    
+    SELECT id , name , course_name , cityname FROM                                                                                                  present) 
+    students s INNER JOIN courses c
+    ON s . courses = c.course_id
+    INNER JOIN city ci
+    ON s.city = ci.cid ;
+    
+    
+    SELECT * FROM studentdata;
+
+RENAME A VIEW:
+    RENAME TABLE old_name       (rename a view)
+    TO new_name;
+
+    SELECT * FROM new_name;     (shows the table of view)    
+
+DELETE A VIEW:
+    DROP VIEW view_name;
+
+    SELECT * FROM view_name;     (shows the table of view)
+******************************************************************
+INDEX(searching process ko easy krta hai):
+
+   CREATE INDEX index_name                               (creates the index)
+   ON table_name (column1,column2,column3,....);    
+         
+   DROP INDEX index_name                                 (deletes the index)
+   ON table_name;
+
+   SHOW INDEX FROM tbale_name;                 (shows the details of cloumns in the table that which column is made as index)                            
+
+Example: 
+
+CREATE INDEX studdob ON students (dob);     (It creates the indices internally for that column and searching will be faster)
+
+SELECT * FROM students                      (shows table according to the condition)
+WHERE dob > "1999-01-01"; 
